@@ -1,0 +1,5 @@
+#Use this file to modify all the variables on the redhat deployment
+username: "admin"
+password: "Password$321"
+ssh_private_key_file: "test/file/location.pem"
+rhel_host: "yeet"

@@ -1,0 +1,29 @@
+---
+- name: Install IDM
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  vars_files:
+    - variables.yml
+
+  tasks:
+    - name: Register the system with Red Hat Subscription Manager
+      command: subscription-manager register --username "{{username}}" --password "{{password}}"
+      when: username is defined and password is defined
+
+    - name: Attach the system to the appropriate subscription
+      command: subscription-manager attach --auto
+      when: username is defined and password is defined
+
+    - name: Enable the required repositories
+      command: subscription-manager repos --enable rhel-8-for-x86_64-baseos-rpms --enable rhel-8-for-x86_64-appstream-rpms --enable rhel-8-for-x86_64-highavailability-rpms
+      when: username is defined and password is defined
+
+    - name: Install IDM packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ipa-server
+        - ipa-server-dns

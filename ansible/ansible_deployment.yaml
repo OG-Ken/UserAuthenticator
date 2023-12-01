@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ansible-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ansible
+  template:
+    metadata:
+      labels:
+        app: ansible
+    spec:
+      containers:
+      - name: ansible-container
+        image: ansible/ansible-runner:latest  # Adjust the image 
+        volumeMounts:
+        - name: ansible-config-volume
+          mountPath: /etc/ansible
+        command: ["/bin/sleep", "infinity"]
+        resources:
+          limits:
+            cpu: "0.5"  # Adjust the CPU limit 
+            memory: "512Mi"  # Adjust the memory limit 
+  volumeClaimTemplates:
+  - metadata:
+      name: ansible-config-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

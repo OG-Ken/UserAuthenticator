@@ -1,0 +1,14 @@
+- name: Install Docker and IDM
+  hosts: newly_created_instance
+  gather_facts: yes
+
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started

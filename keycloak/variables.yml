@@ -1,0 +1,8 @@
+---
+docker_image_name: jboss/keycloak
+container_name: keycloak
+published_ports: "8080:8080"
+plugin_name: plugin-name
+plugin_path: /path/to/plugin.jar
+plugin_name_second: second-plugin-name
+plugin_path_second: /path/to/second-plugin.jar

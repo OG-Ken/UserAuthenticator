@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  vars_files:
+    - variables.yml
+  tasks:
+    - name: Pull Keycloak Docker image
+      docker_image:
+        name: "{{ docker_image_name }}"
+        source: pull
+
+    - name: Run Keycloak container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ docker_image_name }}"
+        published_ports:
+          - "{{ published_ports }}"
+
+    - name: Install IronBank plugin
+      command: |
+        docker exec "{{ container_name }}" /opt/jboss/keycloak/bin/jboss-cli.sh \
+        --command="module add \
+        --name={{ plugin_name }} \
+        --resources={{ plugin_path }} \
+        --dependencies=org.keycloak.keycloak-core,org.keycloak.keycloak-server-spi,org.keycloak.keycloak-server-spi-private"
+
+    - name: Install another plugin
+      command: |
+        docker exec "{{ container_name }}" /opt/jboss/keycloak/bin/jboss-cli.sh \
+        --command="module add \
+        --name={{ another_plugin_name }} \
+        --resources={{ another_plugin_path }} \
+        --dependencies=org.keycloak.keycloak-core,org.keycloak.keycloak-server-spi,org.keycloak.keycloak-server-spi-private" s

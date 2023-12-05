@@ -1,4 +1,17 @@
-    - import_playbook: configure_instance.yml
-    - import_playbook: install_idm.yml
-    - import_playbook: install_docker_idm.yml
-    
+---
+- name: Main playbook to run all other playbooks
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Configure instance
+      import_playbook: configure_instance.yml
+      tags: configure
+
+    - name: Install IDM
+      import_playbook: install_idm.yml
+      tags: install_idm
+
+    - name: Install Docker IDM
+      import_playbook: install_docker_idm.yml
+      tags: install_docker_idm

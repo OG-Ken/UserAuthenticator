@@ -6,7 +6,5 @@ data:
   ansible.cfg: |
     [defaults]
     inventory = /etc/ansible/hosts
-    remote_user = ssh_user 
-    private_key_file = /etc/ansible/ssh/private-key.pem
-
-#line 8-10 needs to be changed   
+    remote_user = {{ remote_user }}
+    private_key_file = {{ private_key_file }}

@@ -1,14 +1,14 @@
 - name: Install Docker and IDM
   hosts: newly_created_instance
-  gather_facts: yes
+  gather_facts: true
 
   tasks:
     - name: Install Docker
-      yum:
+      ansible.builtin.yum:
         name: docker
         state: present
 
     - name: Start Docker service
-      service:
+      ansible.builtin.service:
         name: docker
         state: started

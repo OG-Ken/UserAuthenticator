@@ -7,5 +7,5 @@ echo "Running Ansible Deployment"
 source ../ansible/ansible.sh
 
 echo "Running RHEL Environment"
-source ../redhat.sh
+source ../redhat/redhat.sh
 

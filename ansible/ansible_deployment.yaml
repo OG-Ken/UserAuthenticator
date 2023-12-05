@@ -14,15 +14,15 @@ spec:
     spec:
       containers:
       - name: ansible-container
-        image: ansible/ansible-runner:latest  # Adjust the image 
+        image: ${ansible_image}
         volumeMounts:
         - name: ansible-config-volume
           mountPath: /etc/ansible
         command: ["/bin/sleep", "infinity"]
         resources:
           limits:
-            cpu: "0.5"  # Adjust the CPU limit 
-            memory: "512Mi"  # Adjust the memory limit 
+            cpu: ${cpu_limit}
+            memory: ${memory_limit}
   volumeClaimTemplates:
   - metadata:
       name: ansible-config-volume
@@ -30,4 +30,4 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 1Gi
+          storage: ${storage_request}

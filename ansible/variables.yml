@@ -1,0 +1,6 @@
+ansible_image: ansible/ansible-runner:latest
+cpu_limit: "0.5"
+memory_limit: "512Mi"
+storage_request: 1Gi
+remote_user: 
+private_key_file:
